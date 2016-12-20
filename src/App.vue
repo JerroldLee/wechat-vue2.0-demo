@@ -2,7 +2,7 @@
   <div id="app">
    <header class="app-header" style="display:none;" v-show="appload">
        <div class="_effect" :class="{'_effect--50':decline}">
-           <!-- <index-header style="overflow:visible;"></index-header> -->
+           <index-header style="overflow:visible;"></index-header>
        </div>
    </header>
    <section class="app-content" style="display:none;" v-show="appload">
@@ -11,7 +11,7 @@
    </section>
    <footer class="app-footer _line-fine" style="display:none;" v-show="appload">
        <div class="_effect " :class="{'_effect--50':decline}">
-           <!-- <index-nav></index-nav> -->
+           <index-nav></index-nav>
        </div>
    </footer>   
    <!-- mask layer -->
@@ -30,16 +30,16 @@
 </template>
 
 <script>
-// import store from 'store'
-// import indexHeader from 'components/index-header.vue'
-// import indexNav from 'components/index-nav.vue'
+import store from 'store'
+import indexHeader from 'components/index-header.vue'
+import indexNav from 'components/index-nav.vue'
 
 require('assets/css/common.scss')
 require('assets/css/base.scss')
 export default {
   name: 'app',
   replace: false,
-  // store,
+  store,
   data() {
       return {
           appload: false,//主结构
@@ -76,8 +76,8 @@ export default {
       }
   },
   components: {
-    // indexHeader,
-    // indexNav
+    indexHeader,
+    indexNav
   }
 }
 </script>

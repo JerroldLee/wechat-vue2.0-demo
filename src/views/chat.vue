@@ -3,18 +3,18 @@
         <div class="_full_inner _scroll _effect component-chat" :class="{'_effect--30':decline}">
             <search-bar></search-bar>
             <ul class="wechat-list">
-                <li class="item _line-fine" v-for="(item,index) in wechat_list" transition="chat-item">
+                <li class="item _line-fine" v-for="(item,$index) in wechat_list" transition="chat-item">
                     <div class="info" :class="{
                         'current':currentIndex==$index
                         }" @touchstart="info_touchstart($index)" v-touch:tap="info_tap($index)" v-touch:swipeleft="info_swipeleft($index)" v-touch-options:swipe="{ direction: 'horizontal' }">
                         <div class="ico-box">
-                            <i :class="item.chatConfigModel | f_news 'nclass'" v-text="item.chatBaseModel | f_news 'ntext'" v-show="item.chatBaseModel | f_news 'nshow'"></i>
+                            <i :class="item.chatConfigModel | f_news('nclass')" v-text="item.chatBaseModel | f_news('ntext')" v-show="item.chatBaseModel | f_news('nshow')"></i>
                             <div class="ico">
                                 <img :src="item.base.iconSrc" alt="pic">
                             </div>
                         </div>
                         <div class="desc">
-                            <div class="desc-time" v-text="item.chatBaseModel.endTimeStr | fmtDate 'hh:ss'"></div>
+                            <div class="desc-time" v-text="item.chatBaseModel.endTimeStr | fmtDate('hh:ss')"></div>
                             <div class="desc-title" v-text="item.base.name"></div>
                             <div class="desc-message">
                                 <div class="desc-mute iconfont icon-mute" :title="item.chatConfigModel.newsMute | json" v-show="item.chatConfigModel.newsMute"></div>
@@ -143,6 +143,10 @@ export default {
         }
     },
     filters: {
+        // 过滤器函数总接受表达式的值作为第一个参数
+        // f_news: function(obj,attr) {
+            
+        // }
         f_news(obj, attr) {
             var obj = obj || {}
             let newsClass = obj.newsMute ? '_news-dot' : '_news-count'
@@ -159,11 +163,11 @@ export default {
     components: {
         searchBar
     },
-    created() {
-        this.get_menu_wechat_list(() => {
-            this.computed_unRead_count()
-        })
-    }
+    // created() {
+    //     this.get_menu_wechat_list(() => {
+    //         this.computed_unRead_count()
+    //     })
+    // }
 }
 </script>
 <style scoped>

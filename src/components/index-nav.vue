@@ -1,8 +1,9 @@
 <template>
     <nav>
-        <dl v-for="item in index_nav" v-link="item.path" @click="set_menu_active($index)">
+        <dl v-for="(item,$index) in index_nav" to="item.path" @click="set_menu_active($index)">
             <dt class="iconfont" :class="item.iconClass">
-                <i v-if="item.hint.count" v-text="item.hint | get_prompt " :class="'_news-'+item.hint.type"></i>
+                <!-- 过滤器不能写在v-text里面 -->
+                <i v-if="item.hint.count" v-text="" :class="'_news-'+item.hint.type">{{item.hint | get_prompt}}</i>
             </dt>
             <dd v-text="item.text"></dd>
         </dl>

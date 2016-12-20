@@ -1,10 +1,10 @@
 <template>
     <div class="_cover-top">
         <div class="other">
-            <span class="iconfont icon-tips-jia" v-show="$route.path==='/chat'" @click="tap"></span>
-            <span class="iconfont icon-tips-add-friend" v-show="$route.path==='/contact'" v-link='{path:"/contact/add-friends"}'></span>
+            <span class="iconfont icon-tips-jia" v-show="$route.path==='/chat'" @click.stop="tap"></span>
+            <span class="iconfont icon-tips-add-friend" v-show="$route.path==='/contact'" to='{path:"/contact/add-friends"}'></span>
             <ul class="tips-menu" :class="tips_isOpen?'tips-open':'tips-close'">
-                <li v-for="item in menuArr" v-link="item._link">
+                <li v-for="item in menuArr" to="item._link">
                     <span class="iconfont" :class="item.iconClass"></span>
                     <div v-text="item.text"></div>
                 </li>
@@ -18,18 +18,18 @@
     </div>
 </template>
 <script>
-// import {
-//     menu_active,
-//     index_nav
-// } from 'getters'
+import {
+    menu_active,
+    index_nav
+} from 'getters'
 export default {
     // vuex
-    // vuex: {
-    //     getters: {
-    //         index_nav,
-    //         menu_active
-    //     }
-    // },
+    vuex: {
+        getters: {
+            index_nav,
+            menu_active
+        }
+    },
     data() {
         return {
             tips_isOpen: false,
@@ -80,7 +80,7 @@ export default {
     },
     methods: {
         tap() {
-            event.stopPropagation();
+            // event.stopPropagation();
             this.tips_isOpen = !this.tips_isOpen
         }
 

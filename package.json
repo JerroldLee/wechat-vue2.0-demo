@@ -45,7 +45,7 @@
     "vue-template-compiler": "^2.1.0",
     "vue-touch": "^1.1.0",
     "vuex": "^1.0.0",
-    "vuex-router-sync": "^4.0.1",
+    "vuex-router-sync": "^2.1.0",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.3",
     "webpack-hot-middleware": "^2.12.2",
