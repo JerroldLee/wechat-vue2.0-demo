@@ -1,31 +1,31 @@
 <template>
   <div id="app">
-    <header class="app-header" style="display:none;" v-show="appload">
-        <div class="_effect" :class="{'_effect--50':decline}">
-            <!-- <index-header style="overflow:visible;"></index-header> -->
-        </div>
-    </header>
-    <section class="app-content" style="display:none;" v-show="appload">
-        <!-- index router -->
-        <router-view keep-alive></router-view>
-    </section>
-    <footer class="app-footer _line-fine" style="display:none;" v-show="appload">
-        <div class="_effect " :class="{'_effect--50':decline}">
-            <!-- <index-nav></index-nav> -->
-        </div>
-    </footer>   
-    <!--mask layer--> 
-    <section class="welcome" v-show="welcome"></section>
-    <section class="mobile-tips" style="display:none;" v-show="isnotMobile">
-        <div class="mobile-tips-inner">
-            <div class="mobile-model"> <img src="./assets/images/mobile.png" alt=""></div>
-            <p><br>为保证最佳用户体验,<br></p>
-            <p class="_align-left">1.请用chrome移动设备调试模式(F12)下打开</p>
-            <p class="_align-left">2.手机浏览器访问</p>
-            <br>
-            <button class="weui_btn weui_btn_mini weui_btn_primary" v-touch:tap='isnotMobile = false'>关闭</button>
-        </div>
-    </section>
+   <header class="app-header" style="display:none;" v-show="appload">
+       <div class="_effect" :class="{'_effect--50':decline}">
+           <!-- <index-header style="overflow:visible;"></index-header> -->
+       </div>
+   </header>
+   <section class="app-content" style="display:none;" v-show="appload">
+       <!-- index router -->
+       <router-view keep-alive></router-view>
+   </section>
+   <footer class="app-footer _line-fine" style="display:none;" v-show="appload">
+       <div class="_effect " :class="{'_effect--50':decline}">
+           <!-- <index-nav></index-nav> -->
+       </div>
+   </footer>   
+   <!-- mask layer -->
+   <section class="welcome" v-show="welcome"></section>
+   <section class="mobile-tips" style="display:none;" v-show="isnotMobile">
+       <div class="mobile-tips-inner">
+           <div class="mobile-model"> <img src="./assets/images/mobile.png" alt=""></div>
+           <p><br>为保证最佳用户体验,<br></p>
+           <p class="_align-left">1.请用chrome移动设备调试模式(F12)下打开</p>
+           <p class="_align-left">2.手机浏览器访问</p>
+           <br>
+           <button class="weui_btn weui_btn_mini weui_btn_primary" @click='isnotMobile = false'>关闭</button>
+       </div>
+   </section>
   </div>
 </template>
 
@@ -48,7 +48,7 @@ export default {
           decline: false //router animation
       }
   },
-  created() {
+  mounted() {
       let isMobile = function(){
           let userAgentInfo = navigator.userAgent;
           let Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod")
@@ -62,9 +62,9 @@ export default {
           this.isnotMobile = true;
       }
       // 这里有疑问
-      if (this.$route.matched.length === 1) {
+      // if (this.$route.matched.length === 1) {
           this.welcome = true;
-      }
+      // }
       this.appload = true;
       setTimeout(() => {
           this.welcome = false;
