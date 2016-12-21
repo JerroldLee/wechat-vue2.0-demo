@@ -1,12 +1,14 @@
 <template>
     <div class="_cover-top">
         <div class="other">
-            <span class="iconfont icon-tips-jia" v-show="$route.path==='/chat'" @click.stop="tap"></span>
-            <span class="iconfont icon-tips-add-friend" v-show="$route.path==='/contact'" to='{path:"/contact/add-friends"}'></span>
+            <span class="iconfont icon-tips-jia" v-show="$route.path==='/chat'" @click="tap"></span>
+            <!-- <span class="iconfont icon-tips-add-friend" v-show="$route.path==='/contact'" to='{path:"/contact/add-friends"}'></span> -->
             <ul class="tips-menu" :class="tips_isOpen?'tips-open':'tips-close'">
-                <li v-for="item in menuArr" to="item._link">
-                    <span class="iconfont" :class="item.iconClass"></span>
-                    <div v-text="item.text"></div>
+                <li v-for="item in menuArr">
+                    <router-link to="item._link.path">
+                        <span class="iconfont" :class="item.iconClass"></span>
+                        <div v-text="item.text"></div>
+                    </router-link>
                 </li>
             </ul>
             <div class="tips-masker" v-show="tips_isOpen"></div>
@@ -42,7 +44,7 @@ export default {
                 iconClass: 'icon-tips-xiaoxi'
             }, {
                 _link: {
-                    path: 'add-friends',
+                    path: '/add-friends',
                     append:true
                 },
                 text: '添加朋友',
@@ -70,21 +72,27 @@ export default {
             return  this.menu_active.text==="微信" && this.index_nav[0].hint.count > 0
         }
     },
-    created() {
-        var self = this;
-        $('body').on('touchend', function() {
-            setTimeout(() => {
-                self.tips_isOpen = false;
-            }, 0)
-        })
-    },
+    
+    // 这个疑问
+    // created() {
+    //     var self = this;
+    //     $('body').on('touchend', function() {
+    //         setTimeout(() => {
+    //             self.tips_isOpen = false;
+    //         }, 0)
+    //     })
+    // },
     methods: {
         tap() {
-            // event.stopPropagation();
             this.tips_isOpen = !this.tips_isOpen
         }
 
-    }
+    },
+    // 钩子函数属性是function
+    // mounted: function() {}
+    // mounted() { 
+    //     console.log(this.menuArr[0]._link.path)
+    // }
 }
 </script>
 <style scoped>
@@ -174,5 +182,9 @@ export default {
 
 .other .tips-menu .iconfont {
     margin-right: 15px;
+}
+/*重设router-view里面的颜色*/
+a {
+    color: #fff;
 }
 </style>

@@ -20,5 +20,5 @@ export default new Vuex.Store({
         contacts,
         find
     },
-    strict: true
+    // strict: true
 })

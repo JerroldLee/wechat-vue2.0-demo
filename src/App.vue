@@ -7,7 +7,9 @@
    </header>
    <section class="app-content" style="display:none;" v-show="appload">
        <!-- index router -->
-       <router-view keep-alive></router-view>
+       <keep-alive>
+          <router-view></router-view>
+       </keep-alive> 
    </section>
    <footer class="app-footer _line-fine" style="display:none;" v-show="appload">
        <div class="_effect " :class="{'_effect--50':decline}">
