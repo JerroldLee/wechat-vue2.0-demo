@@ -21,8 +21,20 @@ const mutations = {
 
     }
 }
+const actions = {
+    get_person_info : ({ commit }, id, fn) => {
+        let info = require('../../mock/person-info-' + id)
+        commit('PERSON_INFO', info)
+        !!fn && fn()
+    },
+    get_friends_list : ({ commit }, id) => {
+        let friends = require('../../mock/contact')
+        commit('CONTACT_FRIENDS', friends)
+    }
+}
 
 export default {
     state,
-    mutations
+    mutations,
+    actions
 }

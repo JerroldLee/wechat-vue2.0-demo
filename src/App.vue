@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import store from 'store'
+// import store from 'store'
 import indexHeader from 'components/index-header.vue'
 import indexNav from 'components/index-nav.vue'
 
@@ -41,7 +41,7 @@ require('assets/css/base.scss')
 export default {
   name: 'app',
   replace: false,
-  store,
+  // store,
   data() {
       return {
           appload: false,//主结构

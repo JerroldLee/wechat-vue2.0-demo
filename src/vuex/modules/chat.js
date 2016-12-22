@@ -102,8 +102,38 @@ const mutations = {
     }
 
 }
+const actions = {
+    set_news_state : ({ commit }, index, val, fn) => {
+        commit('SET_NEWS_STATE', index, val)
+        !!fn && fn()
+    },
+    delete_news : ({ commit }, index, fn) => {
+        commit('DELETE_NEWS', index)
+        !!fn && fn()
+    },
+    get_menu_wechat_list : ({ commit }, list) => {
+        commit('SET_MENU_WECHAT_LIST', list)
+    },
+    set_chat : ({ commit }, model) => {
+        commit('CHAT', model)
+    }
+}
+// 这里getters没用到
+// const getters = {
+//     wechat_list : ({ chat }) => chat.wechat_list,
+
+//     chat_base : ({ chat }) => chat.chat_base,
+
+//     edialogue_type : ({ chat }) => chat.dialogue_type,
+//     dialogue : ({ chat }) => chat.dialogue,
+//     dialogue_bar : ({ chat }) => chat.dialogue_bar,
+
+//     chat_member : ({ chat }) => chat.chat_member,
+//     chat_config : ({ chat }) => chat.chat_config
+// }
 
 export default {
     state,
-    mutations
+    mutations,
+    actions
 }

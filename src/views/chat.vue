@@ -6,27 +6,27 @@
                 <li class="item _line-fine" v-for="(item,$index) in wechat_list" transition="chat-item">
                     <div class="info" :class="{
                         'current':currentIndex==$index
-                        }" @touchstart="info_touchstart($index)" v-touch:tap="info_tap($index)" v-touch:swipeleft="info_swipeleft($index)" v-touch-options:swipe="{ direction: 'horizontal' }">
+                        }" @touchstart="info_touchstart($index)" @click="info_tap($index)" >
                         <div class="ico-box">
-                            <i :class="item.chatConfigModel | f_news('nclass')" v-text="item.chatBaseModel | f_news('ntext')" v-show="item.chatBaseModel | f_news('nshow')"></i>
+                            <i :class="item.chatConfigModel" v-text="" v-show="item.chatBaseModel"></i>
                             <div class="ico">
                                 <img :src="item.base.iconSrc" alt="pic">
                             </div>
                         </div>
                         <div class="desc">
-                            <div class="desc-time" v-text="item.chatBaseModel.endTimeStr | fmtDate('hh:ss')"></div>
+                            <div class="desc-time" v-text="">{{item.chatBaseModel.endTimeStr}}</div>
                             <div class="desc-title" v-text="item.base.name"></div>
                             <div class="desc-message">
-                                <div class="desc-mute iconfont icon-mute" :title="item.chatConfigModel.newsMute | json" v-show="item.chatConfigModel.newsMute"></div>
-                                <span :title="item.base.type" v-show="item.base.type==='friends'" v-text="item.chatBaseModel.endChatAuth+':'"></span>
+                                <div class="desc-mute iconfont icon-mute" :title="item.chatConfigModel.newsMute" v-show="item.chatConfigModel.newsMute"></div>
+                                <span :title="item.base.type" v-show="item.base.type==='friends'" v-text="">{{item.chatBaseModel.endChatAuth+':'}}</span>
                                 <span v-text="item.chatBaseModel.endChatTxt"></span>
                             </div>
                         </div>
                     </div>
                     <div class="handle">
-                        <div class="handle-unread" v-touch:tap='increase_newsState($index,1)' v-show="item.chatBaseModel.newsUnreadCount==0">标为未读</div>
-                        <div class="handle-unread" v-touch:tap='increase_newsState($index,0)' v-show="item.chatBaseModel.newsUnreadCount>0">标为已读</div>
-                        <div class="handle-del" v-touch:tap="delete_item($index)">删除</div>
+                        <div class="handle-unread" @click='increase_newsState($index,1)' v-show="item.chatBaseModel.newsUnreadCount==0">标为未读</div>
+                        <div class="handle-unread" @click='increase_newsState($index,0)' v-show="item.chatBaseModel.newsUnreadCount>0">标为已读</div>
+                        <div class="handle-del" @click="delete_item($index)">删除</div>
                     </div>
                 </li>
             </ul>
@@ -36,32 +36,40 @@
     </div>
 </template>
 <script>
-import {
-    wechat_list
-} from 'getters'
-import {
-    get_menu_wechat_list,
-    set_menu_active,
-    set_chat,
-    set_chat_count,
-    set_news_state,
-    delete_news
-} from '../vuex/actions'
-
+// import {
+//     wechat_list
+// } from 'getters'
+// import {
+//     get_menu_wechat_list,
+//     set_menu_active,
+//     set_chat,
+//     set_chat_count,
+//     set_news_state,
+//     delete_news
+// } from '../vuex/actions'
+let list = require('../mock/chat')
 import searchBar from 'components/search-bar.vue'
 
 export default {
-    vuex: {
-        getters: {
-            wechat_list
+    // vuex: {
+    //     getters: {
+    //         wechat_list
+    //     },
+    //     actions: { 
+    //         get_menu_wechat_list,
+    //         set_menu_active,
+    //         set_chat,
+    //         set_chat_count,
+    //         set_news_state,
+    //         delete_news
+    //     }
+    // },
+    computed: {
+        chat_base() {
+            return this.$store.state.chat.chat_base;
         },
-        actions: {
-            get_menu_wechat_list,
-            set_menu_active,
-            set_chat,
-            set_chat_count,
-            set_news_state,
-            delete_news
+        wechat_list() {
+            return this.$store.state.chat.wechat_list;
         }
     },
     route: {
@@ -141,6 +149,12 @@ export default {
             })
 
         }
+        // get_menu_wechat_list() {
+        //     this.$store.dispatch('get_menu_wechat_list',list)
+        // }
+    },
+    mounted() {
+            this.$store.dispatch('get_menu_wechat_list',list)
     },
     filters: {
         // 过滤器函数总接受表达式的值作为第一个参数

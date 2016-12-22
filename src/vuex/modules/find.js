@@ -9,8 +9,15 @@ const mutations = {
         state.iframe_title = urlObj.title
     }
 }
+const actions = {
+	set_iframe_url : ({ commit }, urlObj, fn) => {
+	    commit('SET_IFRAME_URL', urlObj)
+	    !!fn && fn()
+	}
+}
 
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }

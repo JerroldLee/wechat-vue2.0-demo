@@ -20,18 +20,19 @@
     </div>
 </template>
 <script>
-import {
-    menu_active,
-    index_nav
-} from 'getters'
+// import {
+//     menu_active,
+//     index_nav
+// } from 'getters'
+let index_nav = require('../mock/index-nav')
 export default {
     // vuex
-    vuex: {
-        getters: {
-            index_nav,
-            menu_active
-        }
-    },
+    // vuex: {
+    //     getters: {
+    //         index_nav,
+    //         menu_active
+    //     }
+    // },
     data() {
         return {
             tips_isOpen: false,
@@ -70,6 +71,12 @@ export default {
         chatCount(){
             // 计算属性必须return
             return  this.menu_active.text==="微信" && this.index_nav[0].hint.count > 0
+        },
+        index_nav(){
+            return this.$store.state.base.index_nav;
+        },
+        menu_active(){
+            return this.$store.state.base.menu_active;
         }
     },
     
@@ -85,6 +92,9 @@ export default {
     methods: {
         tap() {
             this.tips_isOpen = !this.tips_isOpen
+        },
+        get_index_nav() {
+            this.$store.dispatch('get_index_nav');
         }
 
     },

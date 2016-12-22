@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 // import { sync } from 'vuex-router-sync'
 // import VueTouch from 'vue-touch'
+var VueTouch = require('assets/js/vue-touch')
 import zepto from 'webpack-zepto'
 import fastclick from 'fastclick'
 
@@ -14,7 +15,7 @@ import routerConfig from './router-config.js'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
-// Vue.use(VueTouch)
+Vue.use(VueTouch)
 
 import App from './App'
 
