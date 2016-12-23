@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="desc">
-                            <div class="desc-time" v-text="">{{item.chatBaseModel.endTimeStr}}</div>
+                            <div class="desc-time" v-text="">{{item.chatBaseModel.endTimeStr | f_date}}</div>
                             <div class="desc-title" v-text="item.base.name"></div>
                             <div class="desc-message">
                                 <div class="desc-mute iconfont icon-mute" :title="item.chatConfigModel.newsMute" v-show="item.chatConfigModel.newsMute"></div>
@@ -32,7 +32,7 @@
             </ul>
         </div>
         <!-- router -->
-        <router-view transition="cover" keep-alive></router-view>
+        <router-view></router-view>
     </div>
 </template>
 <script>
@@ -47,7 +47,6 @@
 //     set_news_state,
 //     delete_news
 // } from '../vuex/actions'
-let list = require('../mock/chat')
 import searchBar from 'components/search-bar.vue'
 
 export default {
@@ -100,11 +99,13 @@ export default {
         info_touchstart(_index) {
             this.currentIndex = -1
         },
+        // 跳转到聊天窗口
         info_tap(_index) {
             var index = _index;
             if (index >= 0 && !this.isTouchSwipe) {
-                this.set_chat(this.wechat_list[index])
-                this.$router.go({
+                // this.set_chat(this.wechat_list[index])
+                // $router.go改为$router.push
+                this.$router.push({
                     path: "/chat/dialogue"
                 })
             }
@@ -154,7 +155,7 @@ export default {
         // }
     },
     mounted() {
-            this.$store.dispatch('get_menu_wechat_list',list)
+            this.$store.dispatch('get_menu_wechat_list')
     },
     filters: {
         // 过滤器函数总接受表达式的值作为第一个参数
@@ -172,6 +173,11 @@ export default {
                 nshow: newsShow
             }
             return o[attr]
+        },
+        // 时间戳转换
+        f_date(date) {
+            var oDate=new Date(date*1000);
+            return oDate.getHours()+':'+oDate.getMinutes();
         }
     },
     components: {

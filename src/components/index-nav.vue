@@ -1,34 +1,43 @@
 <template>
     <nav>
-        <dl v-for="(item,$index) in index_nav" to="item.path" @click="set_menu_active($index)">
+        <dl v-for="(item,$index) in index_nav" @click="set_menu_active($index)">
+            <!-- props动态绑定目标位置的对象 -->
+            <router-link  :to="item.path">
             <dt class="iconfont" :class="item.iconClass">
                 <!-- 过滤器不能写在v-text里面 -->
                 <i v-if="item.hint.count" v-text="" :class="'_news-'+item.hint.type">{{item.hint | get_prompt}}</i>
             </dt>
             <dd v-text="item.text"></dd>
+            </router-link>
         </dl>
     </nav>
 </template>
 <script>
-import {
-    index_nav
-} from 'getters'
-import {
-    get_index_nav,
-    set_menu_active
-} from 'actions'
+// import {
+//     index_nav
+// } from 'getters'
+// import {
+//     get_index_nav,
+//     set_menu_active
+// } from 'actions'
 
 export default {
-    vuex: {
-        getters: {
-            index_nav
-        },
-        actions: {
-            get_index_nav,
-            set_menu_active
+    // vuex: {
+    //     getters: {
+    //         index_nav
+    //     },
+    //     actions: {
+    //         get_index_nav,
+    //         set_menu_active
+    //     }
+    // },
+    props: {},
+    computed: {
+        index_nav() {
+            // 这里必须要加return
+            return this.$store.state.base.index_nav;
         }
     },
-    props: {},
     data() {
         return {}
     },
@@ -36,12 +45,16 @@ export default {
         get_prompt(hint) {
             return hint.count
         }
-
     },
-    created() {
-        this.get_index_nav()
+    mounted() {
+        let index_nav = require('../mock/index-nav');
+        this.$store.dispatch('get_index_nav',index_nav);
     },
-    methods: {}
+    methods: {
+        set_menu_active($index) {
+            this.$store.dispatch('set_menu_active',$index);
+        }
+    }
 }
 </script>
 <style scoped>

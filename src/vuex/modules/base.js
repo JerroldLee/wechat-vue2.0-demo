@@ -24,10 +24,10 @@ const mutations = {
     },
     [SET_MENU_ACTIVE](state, _index) {
         //底部导航激活
-        state.menu_active = state.index_nav
-        //设置返回按钮跳转路径,router.after[_index]
+        state.menu_active = state.index_nav[_index]
     },
-    [BACK_PATH](state, _path) {Each设置
+    [BACK_PATH](state, _path) {
+        //设置返回按钮跳转路径,router.afterEach设置
         state.backPath = { path: _path };
     },
     [SET_CHAT_COUNT](state, count) {
@@ -35,7 +35,7 @@ const mutations = {
     }
 }
 const actions = {
-    get_index_nav : ({ commit }) => {
+    get_index_nav : ({ commit },index_nav) => {
         
         commit('SET_MENU', index_nav)
     },

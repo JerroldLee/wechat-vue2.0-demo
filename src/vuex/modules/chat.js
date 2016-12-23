@@ -111,7 +111,8 @@ const actions = {
         commit('DELETE_NEWS', index)
         !!fn && fn()
     },
-    get_menu_wechat_list : ({ commit }, list) => {
+    get_menu_wechat_list : ({ commit }) => {
+        let list = require('../../mock/chat')
         commit('SET_MENU_WECHAT_LIST', list)
     },
     set_chat : ({ commit }, model) => {

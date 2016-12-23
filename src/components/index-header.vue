@@ -92,17 +92,17 @@ export default {
     methods: {
         tap() {
             this.tips_isOpen = !this.tips_isOpen
-        },
-        get_index_nav() {
-            this.$store.dispatch('get_index_nav');
         }
-
     },
     // 钩子函数属性是function
-    // mounted: function() {}
-    // mounted() { 
-    //     console.log(this.menuArr[0]._link.path)
+    // mounted: function() {
+
     // }
+    mounted() { 
+        // console.log(this.menuArr[0]._link.path)
+        // 这点跟原来方法不一样
+        this.$store.dispatch('set_menu_active',0);
+    }
 }
 </script>
 <style scoped>

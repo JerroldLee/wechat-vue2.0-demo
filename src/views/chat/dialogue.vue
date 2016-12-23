@@ -1,58 +1,80 @@
 <template>
+    <div>
     <!--对话框-->
-    <div class="_full_router component-chat-dialogue">
-        <div class="_full_inner">
-            <top-handle :back-text='"微信"' :cur-text='topModel.curText' :next-path='topModel.nextPath' :next-icon='topModel.nextIcon'>
-                <p class="_effect" slot='center' :class="{'_effect--50':decline}">
-                    <span class="top-title__text _ellipsis" v-text='topModel.curText'></span>
-                    <span class="top-title__num parentheses" v-text="chat_member.length" v-show="dialogue_type==='group'"></span>
-                    <span class="iconfont icon-mute" v-show='topModel.isMute'></span>
-                </p>
-            </top-handle>
-            <div class="_cover-content _effect" :class="{'_effect--30':decline}">
-                <section class="dialogue-section">
-                    <div class="dialogue-section-inner">
-                        <div class="dialogue-item dialogue-item--others">
+        <div class="_full_router component-chat-dialogue">
+            <div class="_full_inner">
+                <top-handle :back-text='"微信"' :cur-text='topModel.curText' :next-path='topModel.nextPath' :next-icon='topModel.nextIcon'>
+                    <p class="_effect" slot='center' :class="{'_effect--50':decline}">
+                        <span class="top-title__text _ellipsis" v-text='topModel.curText'></span>
+                        <span class="top-title__num parentheses" v-text="chat_member.length" v-show="dialogue_type==='group'"></span>
+                        <span class="iconfont icon-mute" v-show='topModel.isMute'></span>
+                    </p>
+                </top-handle>
+                <div class="_cover-content _effect" :class="{'_effect--30':decline}">
+                    <section class="dialogue-section">
+                        <div class="dialogue-section-inner">
+                            <div class="dialogue-item dialogue-item--others">
+                            </div>
+                            <div class="dialogue-item dialogue-item--time">
+                            </div>
+                            <div class="dialogue-item dialogue-item--self">
+                            </div>
                         </div>
-                        <div class="dialogue-item dialogue-item--time">
-                        </div>
-                        <div class="dialogue-item dialogue-item--self">
-                        </div>
-                    </div>
-                </section>
-                <footer class="dialogue-footer">
-                    <component :is='dialogue_bar_type'></component>
-                </footer>
+                    </section>
+                    <footer class="dialogue-footer">
+                        <component :is='dialogue_bar_type'></component>
+                    </footer>
+                </div>
             </div>
+            <!-- router -->
+            <router-view transition="cover"></router-view>
         </div>
-        <!-- router -->
-        <router-view transition="cover"></router-view>
     </div>
 </template>
 <script>
-import {
-    chat_base,
-    dialogue_type,
-    dialogue,
-    dialogue_bar,
-    chat_member,
-    chat_config
-} from 'getters'
+// import {
+//     chat_base,
+//     dialogue_type,
+//     dialogue,
+//     dialogue_bar,
+//     chat_member,
+//     chat_config
+// } from 'getters'
 import topHandle from 'topHandle'
 import dialogueBar from 'components/dialogue-bar.vue'
 import dialogueBarPerson from 'components/dialogue-bar-person.vue'
 export default {
-    vuex: {
-        getters: {
-            chat_base,
-            dialogue_type,
-            dialogue,
-            dialogue_bar,
-            chat_member,
-            chat_config
-        },
-        actions: {
+    // vuex: {
+    //     getters: {
+    //         chat_base,
+    //         dialogue_type,
+    //         dialogue,
+    //         dialogue_bar,
+    //         chat_member,
+    //         chat_config
+    //     },
+    //     actions: {
 
+    //     }
+    // },
+    computed: {
+        chat_base() {
+            this.$store.state.chat.chat_base;
+        },
+        dialogue() {
+            this.$store.state.chat.dialogue;
+        },
+        dialogue_bar() {
+            this.$store.state.chat.dialogue_bar;
+        },
+        dialogue_type() {
+            this.$store.state.chat.dialogue_type;
+        },
+        chat_member() {
+            this.$store.state.chat.chat_member;
+        },
+        chat_config() {
+            this.$store.state.chat.chat_config;
         }
     },
     route: {
@@ -107,8 +129,8 @@ export default {
             }
         }
     },
-    create() {
-
+    created() {
+        console.log(this.$store.state.chat.chat_member)
 
     },
     methods: {},
